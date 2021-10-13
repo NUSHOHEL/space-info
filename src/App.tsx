@@ -5,21 +5,20 @@ import "./App.css";
 import Filter from "./component/Filter";
 import NavBar from "./component/NavBar";
 import SpaceCrapt from "./component/SpaceCrapt";
-import { incrementByAmount,filter } from "./store/counterSlice";
+import { fetchData } from "./store/reducer";
 import { RootState } from "./store/store";
 
-
 const App: React.FC = () => {
-  const count = useSelector((state: RootState) => state.counter.value);
+  const count = useSelector((state: RootState) => state.rocket.value);
   const dispatch = useDispatch();
   useEffect(() => {
     fetch("https://api.spacexdata.com/v3/launches")
       .then((res) => res.json())
       .then((data) => {
-      dispatch(filter("Success"))
+        dispatch(fetchData(data));
       });
   }, [dispatch]);
-  console.log(count);
+  
 
   return (
     <div className='app'>
